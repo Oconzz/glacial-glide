@@ -4,4 +4,23 @@
 
 .related-products__heading {
   margin: 0 0 3rem;
+  text-align: center;
+}
+
+@media screen and (min-width: 750px) {
+  .related-products__heading {
+    margin-bottom: 4rem;
+  }
+}
+
+.related-products .product-grid {
+  gap: var(--grid-desktop-vertical-spacing)
+    var(--grid-desktop-horizontal-spacing);
+}
+
+@media screen and (max-width: 749px) {
+  .related-products .product-grid {
+    gap: var(--grid-mobile-vertical-spacing)
+      var(--grid-mobile-horizontal-spacing);
+  }
 }

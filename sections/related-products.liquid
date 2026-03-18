@@ -51,6 +51,34 @@
           {%- assign skip_card_product_styles = true -%}
         {% endfor %}
       </ul>
+    {% elsif recommendations.performed %}
+      {%- comment -%} Fallback: show products from same collection if no recommendations {%- endcomment -%}
+      {%- assign fallback_products = product.collections.first.products | where_not: 'id', product.id | limit: section.settings.products_to_show -%}
+      {%- if fallback_products.size > 0 -%}
+        <h2 class="related-products__heading inline-richtext {{ section.settings.heading_size }}">
+          {{ section.settings.heading }}
+        </h2>
+        <ul
+          class="grid product-grid grid--{{ section.settings.columns_desktop }}-col-desktop grid--{{ section.settings.columns_mobile }}-col-tablet-down"
+          role="list"
+        >
+          {% assign skip_card_product_styles = false %}
+          {% for fallback_product in fallback_products %}
+            <li class="grid__item">
+              {% render 'card-product',
+                card_product: fallback_product,
+                media_aspect_ratio: section.settings.image_ratio,
+                image_shape: section.settings.image_shape,
+                show_secondary_image: section.settings.show_secondary_image,
+                show_vendor: section.settings.show_vendor,
+                show_rating: section.settings.show_rating,
+                skip_styles: skip_card_product_styles
+              %}
+            </li>
+            {%- assign skip_card_product_styles = true -%}
+          {% endfor %}
+        </ul>
+      {%- endif -%}
     {% endif %}
   </product-recommendations>
   {% if section.settings.image_shape == 'arch' %}
@@ -254,6 +282,11 @@
       "unit": "px",
       "label": "t:sections.all.padding.padding_bottom",
       "default": 36
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.related-products.name"
     }
   ]
 }

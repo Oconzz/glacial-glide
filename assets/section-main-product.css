@@ -431,7 +431,12 @@ a.product__text {
 
   .product--thumbnail .product__media-item:not(.is-active),
   .product--thumbnail_slider .product__media-item:not(.is-active) {
-    display: none;
+    display: none !important;
+  }
+
+  .product--thumbnail .product__media-item.is-active,
+  .product--thumbnail_slider .product__media-item.is-active {
+    display: block !important;
   }
 
   .product-media-modal__content > .product__media-item--variant.product__media-item--variant {
